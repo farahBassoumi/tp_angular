@@ -3,7 +3,7 @@ import { Cv } from "../model/cv";
 import { LoggerService } from "../../services/logger.service";
 import { ToastrService } from "ngx-toastr";
 import { CvService } from "../services/cv.service";
-import { catchError, Observable, of } from "rxjs";
+import { catchError, map, Observable, of, shareReplay } from "rxjs";
 @Component({
   selector: "app-cv",
   templateUrl: "./cv.component.html",
@@ -11,7 +11,10 @@ import { catchError, Observable, of } from "rxjs";
 })
 export class CvComponent {
   cvs$!: Observable<Cv[]> ;
+  juniorCv$!: Observable<Cv[]> ; 
+  seniorCv$!: Observable<Cv[]> ;
   selectedCv: Cv | null = null;
+  currentTab: "junior" | "senior" = "junior";
   /*   selectedCv: Cv | null = null; */
   date = new Date();
 
@@ -28,9 +31,22 @@ export class CvComponent {
         //nasna3 observable ml fake cvs
         return of(this.cvService.getFakeCvs());
         
-      }));
+      }),
+      shareReplay(1)
+    );
+    this.juniorCv$=this.cvs$.pipe(
+      map(cvs=>cvs.filter(cv=>cv.age<40))
+    );
+    this.seniorCv$=this.cvs$.pipe(
+      map(cvs=>cvs.filter(cv=>cv.age>=40))
+    );
     this.logger.logger("je suis le cvComponent");
     this.toastr.info("Bienvenu dans notre CvTech");
     this.cvService.selectCv$.subscribe((cv) => (this.selectedCv = cv));
   }
+
+  changeTab(tab: 'junior' | 'senior') {
+    this.currentTab = tab;
+  }
+
 }

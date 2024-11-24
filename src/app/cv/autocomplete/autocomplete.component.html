@@ -1,3 +1,16 @@
 <form [formGroup]="form">
   <input type="text" class="form-control" formControlName="search" />
 </form>
+@if (suggestions.length > 0) {
+  <ul class="list-group">
+    @for (suggestion of suggestions; track suggestion.id) {
+      <li class="list-group-item" (click)="selectCv(suggestion)">
+        {{ suggestion.name }}
+      </li>
+    }
+     <!-- <div class="col">
+      <app-cv-card [cv]="selectedCv"></app-cv-card>
+    </div> -->
+
+  </ul>
+}

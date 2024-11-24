@@ -3,11 +3,29 @@
     <div class="alert alert-warning">
       {{ date | date : "full" | uppercase }}
     </div>
+
+    <div class="col">
+      <button (click)="changeTab('junior')" [class.active]="currentTab === 'junior'">
+        Junior
+      </button>
+      <button (click)="changeTab('senior')" [class.active]="currentTab === 'senior'">
+        Senior
+      </button>
+    </div>
     @if (cvs$) {
-    <app-list [cvs]="cvs$|async"></app-list>}
+
+      @if(currentTab === 'junior') {
+        <app-list [cvs]="juniorCv$|async"></app-list>
+      }
+      @if(currentTab === 'senior') {
+        <app-list [cvs]="seniorCv$|async"></app-list>
+      }
+    }
   </div>
   <div class="col">
     <app-cv-card [cv]="selectedCv"></app-cv-card>
   </div>
 </div>
+<app-autocomplete></app-autocomplete>
+
 <app-embauche></app-embauche>
