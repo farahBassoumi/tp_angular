@@ -71,6 +71,7 @@ export class CvService {
    *
    */
   getCvById(id: number): Observable<Cv> {
+    console.log("getCvById", id);
     return this.http.get<Cv>(API.cv + id);
   }
 
