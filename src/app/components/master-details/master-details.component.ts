@@ -43,6 +43,7 @@ export class MasterDetailsComponent {
   onSelectCv(cvId: number): void {
     console.log('MasterDetailsComponent::onSelectCv: navigate to', cvId);
     this.router.navigate(['/master',cvId]);
+
   }
  
 }
