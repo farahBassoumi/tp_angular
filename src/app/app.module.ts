@@ -53,9 +53,13 @@ import { AutocompleteComponent } from "./cv/autocomplete/autocomplete.component"
 import { SliderComponent } from "./rxjs/slider/slider.component";
 import { TTCComponent } from "./ttc/ttc.component";
 import { ArcEnCielDirective } from "./tp/arc-en-ciel.directive";
+import { DetailsComponent } from "./components/details/details.component";
+import { MasterDetailsComponent } from "./components/master-details/master-details.component";
 
 @NgModule({
   declarations: [
+    MasterDetailsComponent,
+    DetailsComponent,
     AppComponent,
     FirstComponent,
     SecondComponent,

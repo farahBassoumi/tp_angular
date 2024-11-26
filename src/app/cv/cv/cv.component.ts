@@ -4,6 +4,8 @@ import { LoggerService } from "../../services/logger.service";
 import { ToastrService } from "ngx-toastr";
 import { CvService } from "../services/cv.service";
 import { catchError, map, Observable, of, shareReplay } from "rxjs";
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: "app-cv",
   templateUrl: "./cv.component.html",
@@ -21,8 +23,18 @@ export class CvComponent {
   constructor(
     private logger: LoggerService,
     private toastr: ToastrService,
-    private cvService: CvService
+    private cvService: CvService,   
+     private route: ActivatedRoute
+
   ) {
+    // const resolvedData = this.route.snapshot.data['cvs'] as Cv[]; // Access resolver data
+    // console.log('Resolved data from resolver:', resolvedData); // Log the data to check
+
+    // this.cvs$ = new Observable((observer) => {
+    //   observer.next(resolvedData);
+    //   observer.complete();
+    // });
+
     this.cvs$=this.cvService.getCvs().pipe(
       catchError( error => {
         this.toastr.error(`

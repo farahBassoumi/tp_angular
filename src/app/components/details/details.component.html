@@ -1,0 +1,10 @@
+<p>details works!</p>
+<div *ngIf="cv">
+    <h1> {{ cv.name }}</h1>
+    <div>
+      <img src="assets/images/{{ cv.path | defaultImage }}" alt="{{ cv.name }}">
+      <p>{{ cv.id }}</p>
+      <!-- Add more details as needed -->
+    </div>
+  </div>
+  
