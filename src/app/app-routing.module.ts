@@ -15,17 +15,35 @@ import { RhComponent } from "./optimizationPattern/rh/rh.component";
 import { TTCComponent } from "./ttc/ttc.component";
 import { MasterDetailsComponent } from "./components/master-details/master-details.component";
 import { DetailsComponent } from "./components/details/details.component";
-import { CvResolverService } from "./cv/services/cv-resolver.service";
 import { CustomPreloadingStrategy } from "./CustomPreloadingStrategy";
 
 const routes: Route[] = [
-  { path: "login", component: LoginComponent },
-  { path: "rh", component: RhComponent },
+  
+  //lazy loading for one route and it must be a standalone
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/login/login.component').then((m) => m.LoginComponent),
+  },
+
+ //lazy loading for one route and it must be a standalone
+
+  {
+    path: 'rh',
+    loadComponent: () =>
+      import('./optimizationPattern/rh/rh.component').then(
+        (m) => m.RhComponent
+      ),
+  },
+  //lazy loading for module
+
   {
     path: 'cv',
     loadChildren: () => import('./cv/cv.module').then(m => m.CvModule), // Lazy Loading pour CvTech
     data: { preload: true } // Activer le préchargement si nécessaire
   },
+
+ 
   
 
   {
@@ -53,9 +71,13 @@ const routes: Route[] = [
     component: AdminComponent,
     children: [{ path: "color", component: ColorComponent }],
   },
+//lazy loading for one route
   {
-    path: "ttc",
-    component: TTCComponent
+    path: 'ttc',
+    loadComponent: () =>
+      import('./ttc/ttc.component').then(
+        (m) => m.TTCComponent
+      ),
   },
   { path: "**", component: NF404Component },
 ];
