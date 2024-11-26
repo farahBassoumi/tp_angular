@@ -16,40 +16,32 @@ import { TTCComponent } from "./ttc/ttc.component";
 import { MasterDetailsComponent } from "./components/master-details/master-details.component";
 import { DetailsComponent } from "./components/details/details.component";
 import { CvResolverService } from "./cv/services/cv-resolver.service";
-import { CustomPreloadingStrategy } from "./CustomPreloadingStrategy";
 
 const routes: Route[] = [
   { path: "login", component: LoginComponent },
   { path: "rh", component: RhComponent },
+
+
+
   {
-    path: 'cv',
-    loadChildren: () => import('./cv/cv.module').then(m => m.CvModule), // Lazy Loading pour CvTech
-    data: { preload: true } // Activer le préchargement si nécessaire
+    path: "cv",
+    component: CvComponent,
+    resolve: {
+      cvs: CvResolverService
+    }
   },
-  
- 
-// without the added cv.module (using resolver)
-  // {
-  //   path: "cv",
-  //   component: CvComponent,
-  //   resolve: {
-  //     cvs: CvResolverService
-  //     }
-  // },
-  // { path: "cv/add", component: AddCvComponent, canActivate: [AuthGuard] },
-  // { path: "cv/:id", component: DetailsCvComponent },
+  { path: "cv/add", component: AddCvComponent, canActivate: [AuthGuard] },
+  { path: "cv/:id", component: DetailsCvComponent },
 
 
   {
     path: "",
     component: FrontComponent,
     children: [
-     {
-      path: 'todo',
-      loadChildren: () =>
-        import('./todo/todo.module').then((m) => m.TodoModule),
-      data: { preload: true },
-    },
+      {
+        path: 'todo', component: TodoComponent,
+
+      },
       { path: "word", component: MiniWordComponent },
     ],
   },
@@ -73,7 +65,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: CustomPreloadingStrategy })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
