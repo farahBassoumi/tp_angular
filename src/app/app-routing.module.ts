@@ -27,18 +27,6 @@ const routes: Route[] = [
     data: { preload: true } // Activer le préchargement si nécessaire
   },
   
- 
-// without the added cv.module (using resolver)
-  // {
-  //   path: "cv",
-  //   component: CvComponent,
-  //   resolve: {
-  //     cvs: CvResolverService
-  //     }
-  // },
-  // { path: "cv/add", component: AddCvComponent, canActivate: [AuthGuard] },
-  // { path: "cv/:id", component: DetailsCvComponent },
-
 
   {
     path: "",
