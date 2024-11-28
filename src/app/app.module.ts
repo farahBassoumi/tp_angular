@@ -90,7 +90,7 @@ import { MasterDetailsComponent } from "./components/master-details/master-detai
     AdminComponent,
     NF404Component,
     TestFormComponent,
-    LoginComponent,
+   // LoginComponent,
     TestObservableComponent,
     SliderComponent,
     TestHttpComponent,
@@ -101,6 +101,7 @@ import { MasterDetailsComponent } from "./components/master-details/master-detai
   ],
   bootstrap: [AppComponent],
   imports: [
+    LoginComponent,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule, // required animations module

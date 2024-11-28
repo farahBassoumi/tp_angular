@@ -26,6 +26,7 @@ const routes: Route[] = [
       import('./auth/login/login.component').then((m) => m.LoginComponent),
   },
 
+
  //lazy loading for one route and it must be a standalone
 
   {
